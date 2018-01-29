@@ -1,0 +1,102 @@
+@import url('https://fonts.googleapis.com/css?family=Itim|Sedgwick+Ave+Display');
+
+body {
+    box-sizing: border-box;
+    text-align: center;
+    background-color: aliceblue;
+    font-family: 'Itim', cursive;
+}
+/*Styles for section title*/
+.title {
+    margin: 50px 0;
+}
+.title h1 {
+    font-size: 40px;
+}
+.game-title {
+    font-family: 'Sedgwick Ave Display', cursive;
+    letter-spacing: 5px;
+    background-color: cadetblue;
+    color: white;
+    padding: 5px 20px;
+    border-radius: 10px;
+}
+/*Styles for section navigation*/
+.nav button {
+    margin-right: 50px;
+    margin-bottom: 20px;
+    width: 130px;
+    height: 50px;
+    border-radius: 10px;
+    border: 2px solid cadetblue;
+    text-transform: uppercase;
+    font-family: 'Itim', cursive;
+    font-size: 18px;
+    transition: 0.3s;
+}
+.nav button:hover {
+    background-color: cadetblue;
+    color: white;
+    cursor: pointer;
+}
+.nav button:focus {
+    outline: none;
+}
+.error-msg {
+    font-size: 18px;
+    display: inline-block;
+    width: 450px;
+    padding: 10px 0;
+    border: 2px solid cadetblue;
+}
+/*Styles for section board*/
+.board {
+    display: flex;
+    flex-wrap: wrap;
+    width: 450px;
+    border: 3px solid;
+    border-right: 1px solid black;
+    margin: 20px auto;
+}
+/*Styles to make sudoku grid*/
+.tile:nth-child(3n+3){
+    border-right: 3px solid black;
+}
+.tile:nth-child(n+19){
+    border-bottom: 3px solid black;
+}
+.tile:nth-child(n+28){
+    border-bottom: 1px solid black;
+}
+.tile:nth-child(n+46){
+    border-bottom: 3px solid black;
+}
+.tile:nth-child(n+55){
+    border-bottom: 1px solid black;
+}
+/*Styles for single input*/
+.tile {
+    text-align: center;
+    width: 50px;
+    height: 50px;
+    box-sizing: border-box;
+    border: 1px solid black;
+    font-size: 18px;
+}
+input:hover {
+    background-color: aliceblue;
+    cursor: pointer;
+}
+input:disabled {
+    background-color: cadetblue;
+    color: black;
+}
+input::-webkit-inner-spin-button, 
+input::-webkit-outer-spin-button { 
+    -webkit-appearance: none;
+    margin: 0;
+}
+input:disabled:hover {
+    background-color: cadetblue;
+    cursor: auto;
+}
