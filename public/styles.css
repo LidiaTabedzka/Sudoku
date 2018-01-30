@@ -22,7 +22,8 @@ body {
     border-radius: 10px;
 }
 /*Styles for section navigation*/
-.nav button {
+.nav button,
+.undo-button {
     margin-right: 50px;
     margin-bottom: 20px;
     width: 130px;
@@ -34,12 +35,14 @@ body {
     font-size: 18px;
     transition: 0.3s;
 }
-.nav button:hover {
+.nav button:hover,
+.undo-button:hover {
     background-color: cadetblue;
     color: white;
     cursor: pointer;
 }
-.nav button:focus {
+.nav button:focus,
+.undo-button:focus {
     outline: none;
 }
 .error-msg {
@@ -57,6 +60,9 @@ body {
     border: 3px solid;
     border-right: 1px solid black;
     margin: 20px auto;
+}
+.undo-button {
+    margin: 0 auto;
 }
 /*Styles to make sudoku grid*/
 .tile:nth-child(3n+3){

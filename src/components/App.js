@@ -11,7 +11,8 @@ class App extends Component {
             initialBoard: '',
             board: '',
             error: '',
-            newGameClicked: false
+            newGameClicked: false,
+            movesArray: []
         }
     }
 
@@ -63,7 +64,34 @@ class App extends Component {
         var array = this.state.board.split('').map((tile, index) => 
             (index === parseInt(id, 0)) ? ((value !== "") && (value < 10) && (value > 0) ? value : ".") : tile)
         .join('');
-        this.setState({board : array});
+        this.setState({
+            board : array,
+            error : ""
+        });
+        this.setMovesArray(id, value);
+    }
+
+    setMovesArray(id, value) {
+        var allMoves = this.state.movesArray.concat([{id, value}]);
+        this.setState({movesArray : allMoves});
+    }
+
+    undoHandler() {
+        var movesArrayLength = this.state.movesArray.length;
+        if (movesArrayLength) {
+            var removedTileId = this.state.movesArray[movesArrayLength-1].id;
+            var newMovesArray = this.state.movesArray.slice(0, movesArrayLength-1);
+            var prevTileValueArray = newMovesArray.filter(move => move.id === removedTileId);
+
+            var prevTileValue = (prevTileValueArray.length > 0 && prevTileValueArray[prevTileValueArray.length-1].value !== "") ? 
+            prevTileValueArray[prevTileValueArray.length-1].value : ".";
+
+            var newBoard = this.state.board.split('').map((tile, index) => (index === parseInt(removedTileId,0)) ? prevTileValue : tile).join('');
+            this.setState({
+                board : newBoard,
+                movesArray: newMovesArray
+            });
+        }
     }
 
     render() {
@@ -84,6 +112,9 @@ class App extends Component {
                     initialBoard={this.state.initialBoard.split('')} 
                     onChange={(value, id) => this.onChangeHandler(value, id)}
                 />
+                {
+                    this.state.board ? <button onClick={() => this.undoHandler()} className="undo-button">UNDO</button> : null
+                }
             </div>
         );
     }
