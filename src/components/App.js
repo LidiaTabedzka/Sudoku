@@ -8,11 +8,11 @@ class App extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            initialBoard: '',
-            board: '',
+            initialBoard: sessionStorage.getItem('initialboard') ? sessionStorage.getItem('initialboard') : '',
+            board: sessionStorage.getItem('board') ? sessionStorage.getItem('board') : '',
             error: '',
             newGameClicked: false,
-            movesArray: []
+            movesArray: sessionStorage.getItem('moves') ? JSON.parse(sessionStorage.getItem('moves')) : []
         }
     }
 
@@ -24,10 +24,16 @@ class App extends Component {
             error : '',
             newGameClicked: false
         });
+        this.sessionStorageClearHandler();
     }
 
     newGameHandler() {
-        this.setState({newGameClicked: true})
+        this.setState({
+            board : '',
+            initialBoard: '',
+            error: '',
+            newGameClicked: true
+        })
     }
 
     restartNewGame(){
@@ -68,12 +74,13 @@ class App extends Component {
             board : array,
             error : ""
         });
-        this.setMovesArray(id, value);
+        this.setMovesArray(id, value, array);
     }
 
-    setMovesArray(id, value) {
+    setMovesArray(id, value, array) {
         var allMoves = this.state.movesArray.concat([{id, value}]);
         this.setState({movesArray : allMoves});
+        this.sessionStorageHandler(array, allMoves);
     }
 
     undoHandler() {
@@ -91,7 +98,20 @@ class App extends Component {
                 board : newBoard,
                 movesArray: newMovesArray
             });
+            this.sessionStorageHandler(newBoard, newMovesArray);
         }
+    }
+
+    sessionStorageHandler(currentGameState, allMoves) {
+        sessionStorage.setItem('board', currentGameState);
+        sessionStorage.setItem('initialboard', this.state.initialBoard);
+        sessionStorage.setItem('moves', JSON.stringify(allMoves));
+    }
+
+    sessionStorageClearHandler() {
+        sessionStorage.clear('initialboard');
+        sessionStorage.clear('board');
+        sessionStorage.clear('moves');
     }
 
     render() {
