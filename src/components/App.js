@@ -8,11 +8,11 @@ class App extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            initialBoard: sessionStorage.getItem('initialboard') ? sessionStorage.getItem('initialboard') : '',
-            board: sessionStorage.getItem('board') ? sessionStorage.getItem('board') : '',
+            initialBoard: localStorage.getItem('initialboard') ? localStorage.getItem('initialboard') : '',
+            board: localStorage.getItem('board') ? localStorage.getItem('board') : '',
             error: '',
             newGameClicked: false,
-            movesArray: sessionStorage.getItem('moves') ? JSON.parse(sessionStorage.getItem('moves')) : []
+            movesArray: localStorage.getItem('moves') ? JSON.parse(localStorage.getItem('moves')) : []
         }
     }
 
@@ -24,7 +24,7 @@ class App extends Component {
             error : '',
             newGameClicked: false
         });
-        this.sessionStorageClearHandler();
+        this.localStorageClearHandler();
     }
 
     newGameHandler() {
@@ -80,7 +80,7 @@ class App extends Component {
     setMovesArray(id, value, array) {
         var allMoves = this.state.movesArray.concat([{id, value}]);
         this.setState({movesArray : allMoves});
-        this.sessionStorageHandler(array, allMoves);
+        this.localStorageHandler(array, allMoves);
     }
 
     undoHandler() {
@@ -98,20 +98,20 @@ class App extends Component {
                 board : newBoard,
                 movesArray: newMovesArray
             });
-            this.sessionStorageHandler(newBoard, newMovesArray);
+            this.localStorageHandler(newBoard, newMovesArray);
         }
     }
 
-    sessionStorageHandler(currentGameState, allMoves) {
-        sessionStorage.setItem('board', currentGameState);
-        sessionStorage.setItem('initialboard', this.state.initialBoard);
-        sessionStorage.setItem('moves', JSON.stringify(allMoves));
+    localStorageHandler(currentGameState, allMoves) {
+        localStorage.setItem('board', currentGameState);
+        localStorage.setItem('initialboard', this.state.initialBoard);
+        localStorage.setItem('moves', JSON.stringify(allMoves));
     }
 
-    sessionStorageClearHandler() {
-        sessionStorage.clear('initialboard');
-        sessionStorage.clear('board');
-        sessionStorage.clear('moves');
+    localStorageClearHandler() {
+        localStorage.clear('initialboard');
+        localStorage.clear('board');
+        localStorage.clear('moves');
     }
 
     render() {
